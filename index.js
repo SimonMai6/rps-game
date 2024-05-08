@@ -1,26 +1,26 @@
 function capitalize(string){
 
-    if(typeof string === "string"){
-        let lower = string.substring(1).toLowerCase();
-        let upper = string.charAt(0).toUpperCase();
-        return upper + lower;
-    }
-    else{
-        console.log("not a string.");
-    }
+    let lower = string.substring(1).toLowerCase();
+    let upper = string.charAt(0).toUpperCase();
+    return upper + lower;
+ 
+
 }
 
 function playRound(playerSelection, computerSelection){
-    if (playerSelection === computerSelection){
-        return "It's a draw. You both picked " + playerSelection;
+    if(!(typeof playerSelection === "string")){
+        console.log("Not a string.");
+    }
+    else if(playerSelection === computerSelection){
+        return `It's a draw. You both picked ${playerSelection}!`;
     }
     else if((playerSelection === "Scissor" && computerSelection === "Rock") ||
     (playerSelection === "Rock" && computerSelection === "Paper") ||
     (playerSelection === "Paper" && computerSelection === "Scissor")){
-        return "You Lose! " + computerSelection + " beats " + playerSelection;
+        return `You Lose! ${computerSelection} beats ${playerSelection}!`;
     }
     else{
-        return "You Win! " + playerSelection + " beats " + computerSelection;
+        return `You Win! ${playerSelection} beats ${computerSelection}!`;
     }
 }
 
@@ -31,9 +31,17 @@ function getComputerChoice(){
     return computerChoice[ranNum];
 }
 
-const playerSelection = capitalize(prompt("Choose from Rock, Paper, or, Scissor."));
-const computerSelection = getComputerChoice();
-console.log(playerSelection + " " + computerSelection)
 
-console.log(playRound(playerSelection, computerSelection));
+const buttons = document.querySelectorAll("button");
+const div = 
+buttons.forEach((button) => {
+    button.addEventListener("click", () =>{
+        const computerSelection = getComputerChoice();
+        const playerSelection = capitalize(button.id);
+        console.log(`Player chose ${playerSelection} vs Computer chose ${computerSelection}`);
+        console.log(playRound(playerSelection, computerSelection));
+    });
+});
+
+
 
